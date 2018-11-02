@@ -5,56 +5,56 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class LogInPage extends AppCompatActivity {
 
-    Button signin;
-    Button forgot;
-    Button register;
+    @BindView(R.id.login_Email)
+    EditText emailInput;
+
+    @BindView(R.id.login_Password)
+    EditText passwordInput;
+
+    UserAccountDBHelper mDbHelper;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in_page);
 
-        signin = (Button)findViewById(R.id.signin);
-        signin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signInScreen();
-            }
-        });
+        ButterKnife.bind(this);
 
-        forgot = (Button)findViewById(R.id.forgot);
-        forgot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                forgotScreen();
-            }
-        });
+        // UserAccoutDBHelper instance
+        mDbHelper = new UserAccountDBHelper(this);
 
-        register = (Button)findViewById(R.id.register);
-        register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                registerScreen();
-            }
-        });
+        }
 
-    }
 
-    public void signInScreen() {
-        // brings you back to the SignInPage
-        Intent intent = new Intent(this, SecondAuthentication.class);
-        startActivity(intent);
-    }
+
+    @OnClick(R.id.login_ForgotPassword)
     public void forgotScreen() {
-        // brings you back to the SignInPage
+        // Bring you to the Forgot Password page
         Intent intent = new Intent(this, ForgotPassword.class);
         startActivity(intent);
     }
+
+    @OnClick(R.id.login_NewAccount)
     public void registerScreen() {
-        // brings you back to the SignInPage
+        // Brings you to the Registration Page
         Intent intent = new Intent(this, Register.class);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.login_SignIn)
+    public void fingerprintScreen() {
+        // Brings you to the Fingerprint Screen
+        Intent intent = new Intent(this, SecondAuthentication.class);
         startActivity(intent);
     }
 }

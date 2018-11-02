@@ -35,9 +35,7 @@
         app:layout_constraintTop_toBottomOf="@+id/loginLogo">
 
         <EditText
-            android:id="@+id/emailInput"
-            android:textColor="@color/colorWhite"
-            android:textColorHint="@color/colorGrey"
+            android:id="@+id/login_Email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -45,12 +43,12 @@
             android:ems="10"
             android:hint="@string/email_address"
             android:inputType="textEmailAddress"
+            android:textColor="@color/colorWhite"
+            android:textColorHint="@color/colorGrey"
             android:textSize="15sp" />
 
         <EditText
-            android:id="@+id/passwordInput"
-            android:textColor="@color/colorWhite"
-            android:textColorHint="@color/colorGrey"
+            android:id="@+id/login_Password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -58,16 +56,18 @@
             android:ems="10"
             android:hint="@string/password"
             android:inputType="textPassword"
+            android:textColor="@color/colorWhite"
+            android:textColorHint="@color/colorGrey"
             android:textSize="15sp" />
 
         <Button
-            android:id="@+id/signInButton"
-            android:textColor="@color/colorBlue"
-            android:background="@color/colorWhite"
+            android:id="@+id/login_SignIn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@color/colorWhite"
             android:text="@string/signIn"
+            android:textColor="@color/colorBlue"
             android:textSize="20sp" />
 
     </LinearLayout>
@@ -84,19 +84,19 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
         <TextView
-            android:id="@+id/forgotPasswordText"
-            android:layout_marginBottom="10sp"
+            android:id="@+id/login_ForgotPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10sp"
             android:text="@string/forgot_Password"
             android:textColor="@color/colorGrey" />
 
         <TextView
-            android:id="@+id/newAccountText"
-            android:textColor="@color/colorGrey"
+            android:id="@+id/login_NewAccount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/no_Account" />
+            android:text="@string/no_Account"
+            android:textColor="@color/colorGrey" />
     </LinearLayout>
 
 

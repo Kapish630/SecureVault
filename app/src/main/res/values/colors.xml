@@ -10,7 +10,8 @@
     <color name="colorLightGrey">#EEE</color>
     <color name="colorGreen">#006F51</color>
     <color name="colorBrightGreen">#0f0</color>
-    <color name="colorErrorRed">#f66</color>
+    <color name="colorRed">#f66</color>
+    <color name="colorBlack">#000</color>
 
 
 

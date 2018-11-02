@@ -24,6 +24,8 @@
     <string name="fullName">Full Name:</string>
     <string name="forgotPasswordMessage">Please enter your email address and we will send you your password at the specified email.</string>
     <string name="forgotPasswordButton">Confirm</string>
+    <string name="folders_text">Folders</string>
+    <string name="add_folder">ADD FOLDER</string>
 
 
     <string-array name="fsc_bcs_classes">

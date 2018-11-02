@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
         lstClasses=new ArrayList<String>(Arrays.asList(mClasses));
 
-        mTv=(TextView)findViewById(R.id.tv1);
+        mTv=(TextView)findViewById(R.id.foldersHeader);
         mLinearLayout=(LinearLayout)findViewById(R.id.linear);
 
         mBtn = new Button(this);

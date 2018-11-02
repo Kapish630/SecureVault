@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">SecureVault</string>
+    <string name="login">Email Address: </string>
+    <string name="pass">Password: </string>
+    <string name="signIn">Sign In</string>
+    <string name="register">Register</string>
+    <string name="fingerprint">FingerPrint Authentication</string>
+    <string name="instructions">Place your fingertip on the Home button to verify your identity
+</string>
+
+    <string-array name="fsc_bcs_classes">
+        <item>Christmas Party</item>
+        <item>Credit Cards</item>
+        <item>Weekend in Vegas</item>
+
+    </string-array>
+</resources>

@@ -48,7 +48,7 @@
             android:digits="@string/alpha"
             android:ems="10"
             android:hint="@string/fullName"
-            android:inputType="textCapCharacters|textPersonName"
+            android:inputType="textPersonName"
             android:selectAllOnFocus="true"
             android:singleLine="true"
             android:textColor="@color/colorWhite"

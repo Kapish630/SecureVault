@@ -17,11 +17,13 @@
     <string name="no_Account">No Account? Click Here</string>
     <string name="registerMessage">Please enter in the information to make an account</string>
 
-    <string name="alpha">ABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+    <string name="alpha">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz</string>
     <string name="emailHint">Enter in your email address</string>
     <string name="passwordHint">Enter in your password</string>
     <string name="retypePassword">Retype Password:</string>
     <string name="fullName">Full Name:</string>
+    <string name="forgotPasswordMessage">Please enter your email address and we will send you your password at the specified email.</string>
+    <string name="forgotPasswordButton">Confirm</string>
 
 
     <string-array name="fsc_bcs_classes">

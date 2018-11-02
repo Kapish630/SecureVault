@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".LogInPage"
-    android:background="@color/colorGrey">
+    android:background="@color/colorBlue">
 
     <ImageView
         android:id="@+id/loginLogo"
@@ -22,49 +22,82 @@
         app:srcCompat="@drawable/logo" />
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="25dp"
         android:layout_marginEnd="8dp"
         android:orientation="vertical"
-        android:background="@color/colorWhite"
+        android:padding="25sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginLogo">
 
         <EditText
             android:id="@+id/emailInput"
+            android:textColor="@color/colorWhite"
+            android:textColorHint="@color/colorGrey"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:width="60dp"
             android:ems="10"
-            android:hint="@string/email_address_hint"
+            android:hint="@string/email_address"
             android:inputType="textEmailAddress"
-            tools:layout_editor_absoluteX="153dp"
-            tools:layout_editor_absoluteY="80dp" />
+            android:textSize="15sp" />
 
         <EditText
             android:id="@+id/passwordInput"
+            android:textColor="@color/colorWhite"
+            android:textColorHint="@color/colorGrey"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:width="60dp"
             android:ems="10"
-            android:hint="@string/password_hint"
-            android:inputType="textPassword" />
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:textSize="15sp" />
 
         <Button
             android:id="@+id/signInButton"
+            android:textColor="@color/colorBlue"
+            android:background="@color/colorWhite"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/signIn" />
+            android:text="@string/signIn"
+            android:textSize="20sp" />
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:orientation="vertical"
+        android:padding="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
+        <TextView
+            android:id="@+id/forgotPasswordText"
+            android:layout_marginBottom="10sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/forgot_Password"
+            android:textColor="@color/colorGrey" />
+
+        <TextView
+            android:id="@+id/newAccountText"
+            android:textColor="@color/colorGrey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/no_Account" />
+    </LinearLayout>
 
 
 </android.support.constraint.ConstraintLayout>

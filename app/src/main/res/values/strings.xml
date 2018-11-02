@@ -9,18 +9,18 @@
     <string name="fingerprintHeading">Fingerprint Authentication</string>
     <string name="fingerprintStartMessage">Place your finger on the scanner</string>
 
-    <string name="login">Email Address: </string>
-    <string name="pass">Password: </string>
+    <string name="email_address">Email Address: </string>
+    <string name="password">Password: </string>
     <string name="signIn">Sign In</string>
     <string name="register">Register</string>
-    <string name="fingerprint">FingerPrint Authentication</string>
-    <string name="instructions">Place your fingertip on the Home button to verify your identity
-</string>
+    <string name="forgot_Password">Forgot Password?</string>
+    <string name="no_Account">No Account? Click Here</string>
+
 
     <string-array name="fsc_bcs_classes">
         <item>Christmas Party</item>
         <item>Credit Cards</item>
         <item>Weekend in Vegas</item>
-
     </string-array>
+
 </resources>

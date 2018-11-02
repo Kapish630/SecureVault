@@ -8,4 +8,10 @@
     <color name="colorWhite">#FFF</color>
     <color name="colorGrey">#DDD</color>
     <color name="colorLightGrey">#EEE</color>
+    <color name="colorGreen">#006F51</color>
+    <color name="colorBrightGreen">#0f0</color>
+    <color name="colorErrorRed">#f66</color>
+
+
+
 </resources>

@@ -4,202 +4,125 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:layout_gravity="center"
     tools:context=".Register">
 
-    <ScrollView
-        android:id="@+id/regScrollView"
-        android:layout_width="368dp"
-        android:layout_height="310dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <!-- Message to the user to enter in the information
+                                                            -->
+    <TextView
+        android:id="@+id/registerLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="15dp"
+        android:gravity="center"
+        android:text="@string/registerMessage"
+        android:textColor="@color/colorWhite"
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.02">
+        app:layout_constraintTop_toBottomOf="@+id/registerLogo" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/regText1"
-                    android:layout_width="30sp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="First Name: "
-                    android:textSize="17dp"
-                    tools:layout_editor_absoluteX="0dp"
-                    tools:layout_editor_absoluteY="47dp" />
-
-                <EditText
-                    android:id="@+id/regEdit1"
-                    android:layout_width="50sp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:width="50sp"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:maxLength="30" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/regText2"
-                    android:layout_width="30sp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Last Name: "
-                    android:textSize="17dp"
-                    tools:layout_editor_absoluteX="0dp"
-                    tools:layout_editor_absoluteY="91dp" />
-
-                <EditText
-                    android:id="@+id/regEdit2"
-                    android:layout_width="50sp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:width="50sp"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:maxLength="30" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/regText3"
-                    android:layout_width="30sp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Email Address: "
-                    android:textSize="17dp"
-                    tools:layout_editor_absoluteX="0dp"
-                    tools:layout_editor_absoluteY="151dp" />
-
-                <EditText
-                    android:id="@+id/regEdit3"
-                    android:layout_width="50sp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="textEmailAddress"
-                    tools:layout_editor_absoluteX="130dp"
-                    tools:layout_editor_absoluteY="320dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/regText4"
-                    android:layout_width="30sp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Confirm Email: "
-                    android:textSize="17dp"
-                    tools:layout_editor_absoluteX="0dp"
-                    tools:layout_editor_absoluteY="209dp" />
-
-                <EditText
-                    android:id="@+id/regEdit4"
-                    android:layout_width="50sp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="textEmailAddress" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/regText5"
-                    android:layout_width="30sp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:layout_weight="1"
-                    android:text="Password: "
-                    android:textSize="17dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/regText4"
-                    app:layout_constraintVertical_bias="0.125"
-                    tools:layout_editor_absoluteX="0dp" />
-
-                <EditText
-                    android:id="@+id/regEdit5"
-                    android:layout_width="50sp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="textPassword" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/regText6"
-                    android:layout_width="30sp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:layout_weight="1"
-                    android:text="Confirm Password: "
-                    android:textSize="17dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/regText4"
-                    app:layout_constraintVertical_bias="0.125"
-                    tools:layout_editor_absoluteX="0dp" />
-
-                <EditText
-                    android:id="@+id/regEdit6"
-                    android:layout_width="50sp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="textPassword" />
-            </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
-
-    <Button
-        android:id="@+id/regBtn"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/registerLinearLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="7dp"
-        android:text="Submit"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="15dp"
+        android:orientation="vertical"
+        android:padding="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/regScrollView"
-        app:layout_constraintVertical_bias="0.17" />
+        app:layout_constraintTop_toBottomOf="@+id/registerLabel">
+
+        <EditText
+            android:id="@+id/reigsterFullName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10sp"
+            android:digits="@string/alpha"
+            android:ems="10"
+            android:hint="@string/fullName"
+            android:inputType="textCapCharacters|textPersonName"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:textColor="@color/colorWhite"
+            android:textColorHint="@color/colorGrey"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/registerEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10sp"
+            android:ems="10"
+            android:hint="@string/email_address"
+            android:inputType="textEmailAddress"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:textColor="@color/colorWhite"
+            android:textColorHint="@color/colorGrey"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/registerPassword1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10sp"
+            android:ems="10"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:textColor="@color/colorWhite"
+            android:textColorHint="@color/colorGrey"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/registerPassword2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/retypePassword"
+            android:inputType="textPassword"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:textColor="@color/colorWhite"
+            android:textColorHint="@color/colorGrey"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/registerButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="25dp"
+        android:background="@color/colorBlue"
+        android:text="@string/register"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registerLinearLayout" />
+
+    <ImageView
+        android:id="@+id/registerLogo"
+        android:layout_width="75sp"
+        android:layout_height="75sp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo" />
 
 
 </android.support.constraint.ConstraintLayout>

@@ -32,13 +32,13 @@ public class SecondAuthentication extends AppCompatActivity {
 
     // Declare a string variable for the key we’re going to use in our fingerprint authentication
     private static final String KEY_NAME = "yourKey";
-    private Cipher cipher;
-    private KeyStore keyStore;
-    private KeyGenerator keyGenerator;
-    private TextView textView;
-    private FingerprintManager.CryptoObject cryptoObject;
-    private FingerprintManager fingerprintManager;
-    private KeyguardManager keyguardManager;
+    Cipher cipher;
+    KeyStore keyStore;
+    KeyGenerator keyGenerator;
+    TextView textView;
+    FingerprintManager.CryptoObject cryptoObject;
+    FingerprintManager fingerprintManager;
+    KeyguardManager keyguardManager;
     Button signin2;
 
     @Override

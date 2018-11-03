@@ -1,5 +1,4 @@
 package com.example.kapis.securevault;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -12,11 +11,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -24,7 +23,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -36,12 +34,15 @@ public class MainActivity extends AppCompatActivity {
     List<String> lstClasses;
 
     LinearLayout mLinearLayout;
+
     ListView mLv;
     MyAdapter adapter;
     String str="";
-    static final int REQUEST_TAKE_PHOTO = 1;
 
+    static final int REQUEST_TAKE_PHOTO = 1;
     String mCurrentPhotoPath;
+    @BindView(R.id.main_Header)
+    TextView header;
 
 
     @Override
@@ -84,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
     public void lockApp(){
 
         // Create a dialog box where the user can choose whether they want to sign out or not
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Are you sure you want to lock the app?").setCancelable(false)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
@@ -95,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        return;
+                        dialog.dismiss();
                     }
                 });
         AlertDialog alert = builder.create();
@@ -103,6 +104,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //In here we will allow the user to add a new folder
+    @OnClick(R.id.mainNewFolder)
+    public void addNewFolder() {
+        dispatchTakePictureIntent();
+    }
+
+
+    //Opens the Android camera and allows the user to take a picture.
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
@@ -125,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // Creates and returns an image
     private File createImageFile() throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
@@ -135,23 +145,10 @@ public class MainActivity extends AppCompatActivity {
                 ".jpg",         /* suffix */
                 storageDir      /* directory */
         );
-
         // Save a file: path for use with ACTION_VIEW intents
         mCurrentPhotoPath = image.getAbsolutePath();
         return image;
     }
-
-
-
-    //In here we will allow the user to add a new folder
-    @OnClick(R.id.mainNewFolder)
-    public void addNewFolder() {
-
-        dispatchTakePictureIntent();
-
-    }
-
-
 
 
     public void ChristmasParty() {

@@ -8,7 +8,6 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary">
 
-
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/mainNewFolder"
         android:layout_width="wrap_content"
@@ -20,6 +19,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_new_folder" />
+
 
     <ImageView
         android:id="@+id/main_Logo"
@@ -55,7 +55,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <LinearLayout
         android:id="@+id/main_Linear"
         android:layout_width="match_parent"
@@ -64,6 +63,7 @@
         android:layout_marginStart="2dp"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="2dp"
+        android:layout_marginBottom="2dp"
         android:background="@color/colorGrey"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"

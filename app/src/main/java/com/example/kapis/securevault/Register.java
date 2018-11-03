@@ -127,16 +127,16 @@ public class Register extends AppCompatActivity {
             String NAME = nameInput.getText().toString().trim();
 
             nameInput.setBackgroundColor(getResources().getColor(colorBrightGreen));
-            nameInput.setTextColor(getResources().getColor(colorWhite));
+            nameInput.setTextColor(getResources().getColor(colorBlack));
 
             emailInput.setBackgroundColor(getResources().getColor(colorBrightGreen));
-            emailInput.setTextColor(getResources().getColor(colorWhite));
+            emailInput.setTextColor(getResources().getColor(colorBlack));
 
             passwordInput.setBackgroundColor(getResources().getColor(colorBrightGreen));
-            passwordInput.setTextColor(getResources().getColor(colorWhite));
+            passwordInput.setTextColor(getResources().getColor(colorBlack));
 
             password2Input.setBackgroundColor(getResources().getColor(colorBrightGreen));
-            password2Input.setTextColor(getResources().getColor(colorWhite));
+            password2Input.setTextColor(getResources().getColor(colorBlack));
 
             SQLiteDatabase db = mDbHelper.getWritableDatabase();
 

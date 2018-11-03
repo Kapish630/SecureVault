@@ -11,11 +11,27 @@
                   <entry key="vectorAssetStep">
                     <value>
                       <PersistentState>
+                        <option name="children">
+                          <map>
+                            <entry key="clipartAsset">
+                              <value>
+                                <PersistentState>
+                                  <option name="values">
+                                    <map>
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_fingerprint_black_24dp.xml" />
+                                    </map>
+                                  </option>
+                                </PersistentState>
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_clear_check" />
-                            <entry key="sourceFile" value="C:\Users\moose\Google Drive\School\2018\Fall 2018\BCS421 - Android\Icons\ic_clear_check.svg" />
+                            <entry key="color" value="2d30c8" />
+                            <entry key="outputName" value="ic_plus_sign" />
+                            <entry key="sourceFile" value="C:\Users\moose\Google Drive\School\2018\Fall 2018\BCS421 - Android\Icons\ic_plus_sign.svg" />
                           </map>
                         </option>
                       </PersistentState>

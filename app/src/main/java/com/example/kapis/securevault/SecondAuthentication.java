@@ -30,6 +30,7 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class SecondAuthentication extends AppCompatActivity {
 
@@ -48,6 +49,7 @@ public class SecondAuthentication extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second_authentication);
+        ButterKnife.bind(this);
 
         // If you’ve set your app’s minSdkVersion to anything lower than 23, then you’ll need to verify that the device is running Marshmallow
         // or higher before executing any fingerprint-related code
@@ -61,29 +63,36 @@ public class SecondAuthentication extends AppCompatActivity {
             //Check whether the device has a fingerprint sensor//
             if (!fingerprintManager.isHardwareDetected()) {
                 // If a fingerprint sensor isn’t available, then inform the user that they’ll be unable to use your app’s fingerprint functionality//
-                message.setTextColor(getResources().getColor(R.color.colorRed));
+                message.setTextColor(getResources().getColor(R.color.colorBlack));
+                message.setBackgroundColor(getResources().getColor(R.color.colorRed));
                 message.setText(R.string.err_No_Hardware);
             }
             //Check whether the user has granted your app the USE_FINGERPRINT permission//
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.USE_FINGERPRINT) != PackageManager.PERMISSION_GRANTED) {
+            else if (ActivityCompat.checkSelfPermission(this, Manifest.permission.USE_FINGERPRINT)
+                    != PackageManager.PERMISSION_GRANTED) {
                 // If your app doesn't have this permission, then display the following text//
-                message.setTextColor(getResources().getColor(R.color.colorRed));
+                message.setTextColor(getResources().getColor(R.color.colorBlack));
+                message.setBackgroundColor(getResources().getColor(R.color.colorRed));
                 message.setText(R.string.err_No_Permission);
             }
 
+            //Check that the lockscreen is secured//
+            else if (!keyguardManager.isKeyguardSecure()) {
+                // If the user hasn’t secured their lockscreen with a PIN password or pattern, then display the following text//
+                message.setTextColor(getResources().getColor(R.color.colorBlack));
+                message.setBackgroundColor(getResources().getColor(R.color.colorRed));
+                message.setText(R.string.err_No_LockonPhone);
+            }
+
             //Check that the user has registered at least one fingerprint//
-            if (!fingerprintManager.hasEnrolledFingerprints()) {
+            else if (!fingerprintManager.hasEnrolledFingerprints()) {
                 // If the user hasn’t configured any fingerprints, then display the following message//
-                message.setTextColor(getResources().getColor(R.color.colorRed));
+                message.setTextColor(getResources().getColor(R.color.colorBlack));
+                message.setBackgroundColor(getResources().getColor(R.color.colorRed));
                 message.setText(R.string.err_No_Fingerprints);
             }
 
-            //Check that the lockscreen is secured//
-            if (!keyguardManager.isKeyguardSecure()) {
-                // If the user hasn’t secured their lockscreen with a PIN password or pattern, then display the following text//
-                message.setTextColor(getResources().getColor(R.color.colorRed));
-                message.setText(R.string.err_No_LockonPhone);
-            } else {
+             else {
                 try { generateKey();
                 } catch (FingerprintException e) {
                     e.printStackTrace();

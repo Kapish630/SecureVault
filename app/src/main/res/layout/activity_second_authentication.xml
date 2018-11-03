@@ -25,8 +25,8 @@
 
     <ImageView
         android:id="@+id/fingerprint_Image"
-        android:layout_width="80sp"
-        android:layout_height="80sp"
+        android:layout_width="96sp"
+        android:layout_height="96sp"
         android:layout_below="@id/fingerprint_Label"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="8dp"

@@ -81,7 +81,9 @@ public class LogInPage extends AppCompatActivity {
             loginSuccess();
         } else {
             emailInput.setBackgroundColor(getResources().getColor(colorBrightGreen));
+            emailInput.setTextColor(getResources().getColor(colorBlack));
             passwordInput.setBackgroundColor(getResources().getColor(colorBrightGreen));
+            passwordInput.setTextColor(getResources().getColor(colorBlack));
             Toast.makeText(this, "LOGIN SUCCESSFUL", Toast.LENGTH_SHORT).show();
 
             SharedPreferences sharedPreferences = getSharedPreferences("MyData", Context.MODE_PRIVATE);

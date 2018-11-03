@@ -4,7 +4,7 @@
     <string name="err_No_Hardware">Your device does not support Fingerprint Scanning.</string>
     <string name="err_No_Permission">You must enable permissions for Fingerprint scanner in Settings.</string>
     <string name="err_No_LockonPhone">You must enable a lock to your device in Settings.</string>
-    <string name="err_No_Fingerprints">You must have at least 1 Fingerprint to use this feature</string>
+    <string name="err_No_Fingerprints">You must set a fingerprint in your Settings to use this feature</string>
     <string name="metRequirements">Place your finger on the scanner to access folders</string>
     <string name="fingerprintHeading">Fingerprint Authentication</string>
     <string name="fingerprintStartMessage">Place your finger on the scanner</string>

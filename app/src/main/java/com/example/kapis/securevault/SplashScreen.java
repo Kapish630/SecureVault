@@ -7,13 +7,13 @@ import android.os.Bundle;
 
 public class SplashScreen extends AppCompatActivity {
 
-    public static int splash_time = 3000;
+    public static int splash_time = 1500;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-        // switching to the SplashScreen 2 page after 3 seconds for splash screen
+        // Switch from Splash Screen after 1.5 seconds
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

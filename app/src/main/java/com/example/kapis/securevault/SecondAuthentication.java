@@ -28,6 +28,9 @@ import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
+
+import butterknife.BindView;
+
 public class SecondAuthentication extends AppCompatActivity {
 
     // Declare a string variable for the key we’re going to use in our fingerprint authentication
@@ -35,24 +38,16 @@ public class SecondAuthentication extends AppCompatActivity {
     Cipher cipher;
     KeyStore keyStore;
     KeyGenerator keyGenerator;
-    TextView textView;
     FingerprintManager.CryptoObject cryptoObject;
     FingerprintManager fingerprintManager;
     KeyguardManager keyguardManager;
-    Button signin2;
+
+    @BindView(R.id.fingerprint_Message) TextView message;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second_authentication);
-
-        signin2 = (Button)findViewById(R.id.signin2);
-        signin2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signInScreen();
-            }
-        });
 
         // If you’ve set your app’s minSdkVersion to anything lower than 23, then you’ll need to verify that the device is running Marshmallow
         // or higher before executing any fingerprint-related code
@@ -63,29 +58,31 @@ public class SecondAuthentication extends AppCompatActivity {
             fingerprintManager =
                     (FingerprintManager) getSystemService(FINGERPRINT_SERVICE);
 
-            textView = (TextView) findViewById(R.id.textView);
-
             //Check whether the device has a fingerprint sensor//
             if (!fingerprintManager.isHardwareDetected()) {
                 // If a fingerprint sensor isn’t available, then inform the user that they’ll be unable to use your app’s fingerprint functionality//
-                textView.setText("Your device doesn't support fingerprint authentication");
+                message.setTextColor(getResources().getColor(R.color.colorRed));
+                message.setText(R.string.err_No_Hardware);
             }
             //Check whether the user has granted your app the USE_FINGERPRINT permission//
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.USE_FINGERPRINT) != PackageManager.PERMISSION_GRANTED) {
                 // If your app doesn't have this permission, then display the following text//
-                textView.setText("Please enable the fingerprint permission");
+                message.setTextColor(getResources().getColor(R.color.colorRed));
+                message.setText(R.string.err_No_Permission);
             }
 
             //Check that the user has registered at least one fingerprint//
             if (!fingerprintManager.hasEnrolledFingerprints()) {
                 // If the user hasn’t configured any fingerprints, then display the following message//
-                textView.setText("No fingerprint configured. Please register at least one fingerprint in your device's Settings");
+                message.setTextColor(getResources().getColor(R.color.colorRed));
+                message.setText(R.string.err_No_Fingerprints);
             }
 
             //Check that the lockscreen is secured//
             if (!keyguardManager.isKeyguardSecure()) {
                 // If the user hasn’t secured their lockscreen with a PIN password or pattern, then display the following text//
-                textView.setText("Please enable lockscreen security in your device's Settings");
+                message.setTextColor(getResources().getColor(R.color.colorRed));
+                message.setText(R.string.err_No_LockonPhone);
             } else {
                 try { generateKey();
                 } catch (FingerprintException e) {
@@ -100,6 +97,7 @@ public class SecondAuthentication extends AppCompatActivity {
                     // for starting the authentication process (via the startAuth method) and processing the authentication process events//
                     FingerprintHandler helper = new FingerprintHandler(this);
                     helper.startAuth(fingerprintManager, cryptoObject);
+
                 }
             }
         }
@@ -157,7 +155,7 @@ public class SecondAuthentication extends AppCompatActivity {
                             + KeyProperties.ENCRYPTION_PADDING_PKCS7);
         } catch (NoSuchAlgorithmException |
                 NoSuchPaddingException e) {
-            throw new RuntimeException("Failed to get Cipher", e);
+            throw new RuntimeException("Failed to get a Cipher", e);
         }
 
         try {
@@ -174,7 +172,7 @@ public class SecondAuthentication extends AppCompatActivity {
         } catch (KeyStoreException | CertificateException
                 | UnrecoverableKeyException | IOException
                 | NoSuchAlgorithmException | InvalidKeyException e) {
-            throw new RuntimeException("Failed to init Cipher", e);
+            throw new RuntimeException("Failed to initialize the Cipher", e);
         }
     }
 
@@ -184,9 +182,5 @@ public class SecondAuthentication extends AppCompatActivity {
         }
     }
 
-    public void signInScreen() {
-        // brings you back to the SignInPage
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    }
+
 }

@@ -42,6 +42,10 @@
 
         <EditText
             android:id="@+id/reigsterFullName"
+            android:background="@drawable/border"
+            android:paddingBottom="5sp"
+            android:paddingTop="5sp"
+            android:paddingLeft="5sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10sp"
@@ -57,8 +61,12 @@
 
         <EditText
             android:id="@+id/registerEmail"
+            android:paddingBottom="5sp"
+            android:paddingTop="5sp"
+            android:paddingLeft="5sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/border"
             android:layout_marginBottom="10sp"
             android:ems="10"
             android:hint="@string/email_address"
@@ -71,7 +79,11 @@
 
         <EditText
             android:id="@+id/registerPassword1"
+            android:paddingBottom="5sp"
+            android:paddingTop="5sp"
+            android:paddingLeft="5sp"
             android:layout_width="match_parent"
+            android:background="@drawable/border"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10sp"
             android:ems="10"
@@ -85,6 +97,10 @@
 
         <EditText
             android:id="@+id/registerPassword2"
+            android:paddingBottom="5sp"
+            android:paddingTop="5sp"
+            android:paddingLeft="5sp"
+            android:background="@drawable/border"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"

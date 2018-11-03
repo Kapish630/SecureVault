@@ -17,7 +17,7 @@
     <string name="no_Account">No Account? Click Here</string>
     <string name="registerMessage">Please enter in the information to make an account</string>
 
-    <string name="alpha">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz</string>
+    <string name="alpha">ABCDEFGHIJKLMNOPQRSTUVWXY Zabcdefghijklmnopqrstuvwxyz</string>
     <string name="emailHint">Enter in your email address</string>
     <string name="passwordHint">Enter in your password</string>
     <string name="retypePassword">Retype Password:</string>

@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:text="No Folders Found..."
-    android:textStyle="bold"
-    android:textSize="18sp"
-    android:layout_margin="12sp"
-    android:padding="12sp"
-    >
+    android:padding="15dp"
+    android:id="@+id/folder_parent_layout">
 
-</TextView>
+    <TextView
+        android:id="@+id/folder_layout"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No Folders Found..."
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:layout_margin="12sp"
+        android:padding="12sp"/>
+
+</RelativeLayout>

@@ -42,12 +42,12 @@ public class MainActivity extends AppCompatActivity implements newfolderdialog.N
 
     RecyclerView.LayoutManager layoutManager;
     ArrayList<String> folderList;
-    RecyclerViewAdaptor_Folder adapter;
+    ArrayList<Uri> folderUri;
+    RecyclerViewAdapter_Folder adapter;
 
 
     @BindView(R.id.main_Header)
     TextView header;
-
 
 
     @Override
@@ -58,10 +58,11 @@ public class MainActivity extends AppCompatActivity implements newfolderdialog.N
         prefs = getSharedPreferences("MyData",MODE_PRIVATE);
 
         folderList = new ArrayList<String>();
+        folderUri = new ArrayList<Uri>();
 
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new RecyclerViewAdaptor_Folder(folderList);
+        adapter = new RecyclerViewAdapter_Folder(this, folderList, folderUri);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
 
@@ -105,8 +106,6 @@ public class MainActivity extends AppCompatActivity implements newfolderdialog.N
     @OnClick(R.id.mainNewFolder)
     public void addNewFolder() {
         openNewFolderDialog();
-
-
     }
 
     public void openNewFolderDialog(){

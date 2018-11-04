@@ -27,23 +27,24 @@
     <string name="folders_text">Folders</string>
     <string name="add_folder">ADD FOLDER</string>
     <string name="folder_name">Folder Name:</string>
+    <string name="file_source">File Source:</string>
 
     <string-array name="android_ver">
-    <item>Cupcake</item>
-    <item>Donut</item>
-    <item>Eclair</item>
-    <item>Froyo</item>
-    <item>Gingerbread</item>
-    <item>Honeycomb</item>
-    <item>Ice Cream</item>
-    <item>Jelly Bean</item>
-    <item>KitKat</item>
-    <item>Lollipop</item>
-    <item>Marshmallow</item>
-    <item>Nougat</item>
-    <item>Oreo</item>
-    <item>Android P</item>
-</string-array>
+        <item>Cupcake</item>
+        <item>Donut</item>
+        <item>Eclair</item>
+        <item>Froyo</item>
+        <item>Gingerbread</item>
+        <item>Honeycomb</item>
+        <item>Ice Cream</item>
+        <item>Jelly Bean</item>
+        <item>KitKat</item>
+        <item>Lollipop</item>
+        <item>Marshmallow</item>
+        <item>Nougat</item>
+        <item>Oreo</item>
+        <item>Android P</item>
+    </string-array>
 
 
 </resources>

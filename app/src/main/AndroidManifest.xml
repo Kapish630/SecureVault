@@ -50,9 +50,6 @@
             android:name=".ForgotPassword"
             android:label="Forgot Password" />
         <activity
-            android:name=".ChristmasParty"
-            android:label="Christmas Party" />
-        <activity
             android:name=".Register"
             android:label="Register" />
         <activity android:name=".LogInPage"></activity>

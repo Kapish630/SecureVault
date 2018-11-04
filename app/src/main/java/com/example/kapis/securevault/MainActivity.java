@@ -1,6 +1,7 @@
 package com.example.kapis.securevault;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -8,41 +9,45 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements newfolderdialog.NewFolderListener {
 
+    // Check if its the users first run
+    SharedPreferences prefs = null;
 
-    String[] mClasses;
-    List<String> lstClasses;
+    // Stores the FolderName where the Dialog for new folder is created
+    String newFolderName;
 
-    LinearLayout mLinearLayout;
-
-    ListView mLv;
-    MyAdapter adapter;
-    String str="";
-
+    // Code to take picture request
     static final int REQUEST_TAKE_PHOTO = 1;
+
+    // Stores the path of the picture in a String
     String mCurrentPhotoPath;
+
+    // recvclerView in the activity_main.xml
+    @BindView(R.id.main_FolderRecView)
+    RecyclerView recyclerView;
+
+    RecyclerView.LayoutManager layoutManager;
+    ArrayList<String> folderList;
+    RecyclerViewAdaptor_Folder adapter;
+
+
     @BindView(R.id.main_Header)
     TextView header;
+
 
 
     @Override
@@ -50,35 +55,27 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        prefs = getSharedPreferences("MyData",MODE_PRIVATE);
 
+        folderList = new ArrayList<String>();
 
-        mClasses=getResources().getStringArray(R.array.fsc_bcs_classes);
-
-
-        lstClasses=new ArrayList<String>(Arrays.asList(mClasses));
-
-        mLinearLayout=(LinearLayout)findViewById(R.id.main_Linear);
-
-        mLv=new ListView(this);
-
-        adapter=new MyAdapter(this,-1,mClasses);
-
-        mLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                ChristmasParty();
-            }
-        });
-
-        mLv.setAdapter(adapter);
-        mLinearLayout.addView(mLv);
-
-
-
-
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        adapter = new RecyclerViewAdaptor_Folder(folderList);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setAdapter(adapter);
 
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(prefs.getBoolean("firstRun",true)) {
+            addNewFolder();
+            prefs.edit().putBoolean("firstRun",false).apply();
+        }
+    }
 
     // If the user clicks the Lock Button in the top right corner
     @OnClick(R.id.main_LockBtn)
@@ -107,8 +104,22 @@ public class MainActivity extends AppCompatActivity {
     //In here we will allow the user to add a new folder
     @OnClick(R.id.mainNewFolder)
     public void addNewFolder() {
-        dispatchTakePictureIntent();
+        openNewFolderDialog();
+
+
     }
+
+    public void openNewFolderDialog(){
+        newfolderdialog newfolderdialog = new newfolderdialog();
+        newfolderdialog.show(getSupportFragmentManager(),"newFolderDialog");
+    }
+
+    @Override
+    public void getNewFolderName(String foldername) {
+           folderList.add(foldername);
+           adapter.notifyDataSetChanged();
+    }
+
 
 
     //Opens the Android camera and allows the user to take a picture.
@@ -148,12 +159,6 @@ public class MainActivity extends AppCompatActivity {
         // Save a file: path for use with ACTION_VIEW intents
         mCurrentPhotoPath = image.getAbsolutePath();
         return image;
-    }
-
-
-    public void ChristmasParty() {
-        Intent intent = new Intent(this, ChristmasParty.class);
-        startActivity(intent);
     }
 
 }

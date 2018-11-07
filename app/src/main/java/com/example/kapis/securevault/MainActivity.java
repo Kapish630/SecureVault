@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.io.File;
@@ -19,10 +20,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnLongClick;
 
 public class MainActivity extends AppCompatActivity implements newfolderdialog.NewFolderListener {
 
@@ -53,14 +56,12 @@ public class MainActivity extends AppCompatActivity implements newfolderdialog.N
 
         checkFirstRun();
 
-        folderList = new ArrayList<String>();
+        folderList = new ArrayList<String>(Arrays.asList(fileList()));
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         adapter = new RecyclerViewAdapter_Folder(this, folderList);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
-
-
     }
 
     private void checkFirstRun(){
@@ -68,12 +69,8 @@ public class MainActivity extends AppCompatActivity implements newfolderdialog.N
             addNewFolder();
             prefs.edit().putBoolean("firstRun",false).apply();
         }
-        else
-        {
-
-        }
-
     }
+
 
     public boolean createFolder(String typedInFolderName){
         String newDirectoryName = getFilesDir() + "/" + typedInFolderName;

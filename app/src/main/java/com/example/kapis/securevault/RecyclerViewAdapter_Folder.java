@@ -50,19 +50,43 @@ public class RecyclerViewAdapter_Folder extends RecyclerView.Adapter<RecyclerVie
                 mContext.startActivity(intent);
             }
         });
+
+
+        holder.parentLayout.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                final AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                builder.setMessage("Are you sure you want to delete " + mFolderNames.get(position) + "?").setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                File dirToBeDeleted = new File(mContext.getFilesDir() + "/" + mFolderNames.get(position));
+                                deleteFilesandDirectory(dirToBeDeleted);
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                AlertDialog alert = builder.create();
+                alert.show();
+                return true;
+            }
+        });
+
     }
 
-
-    // When we add delete files
-    /*
-    void deleteRecursive(File fileOrDirectory) {
-        if (fileOrDirectory.isDirectory())
-            for (File child : fileOrDirectory.listFiles())
-                deleteRecursive(child);
-
-        fileOrDirectory.delete();
+    private void deleteFilesandDirectory(File toBeDeleted)
+    {
+        if(toBeDeleted.isDirectory())
+        {
+            for(File child : toBeDeleted.listFiles())
+                deleteFilesandDirectory(child);
+        }
+        toBeDeleted.delete();
     }
-    */
 
     @Override
     public int getItemCount() {

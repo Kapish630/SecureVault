@@ -1,7 +1,9 @@
 package com.example.kapis.securevault;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,17 +13,17 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
+import java.io.File;
+
 
 
 public class RecyclerViewAdapter_Folder extends RecyclerView.Adapter<RecyclerViewAdapter_Folder.ViewHolder>{
 
     private ArrayList<String> mFolderNames;
-    private ArrayList<Uri> mFolderUris;
     private Context mContext;
 
-    public RecyclerViewAdapter_Folder(Context context, ArrayList<String> folderNames, ArrayList<Uri> folderUris ) {
+    public RecyclerViewAdapter_Folder(Context context, ArrayList<String> folderNames ) {
         mFolderNames = folderNames;
-        mFolderUris = folderUris;
         mContext = context;
     }
 
@@ -33,7 +35,7 @@ public class RecyclerViewAdapter_Folder extends RecyclerView.Adapter<RecyclerVie
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
 
         holder.folderNames.setText(mFolderNames.get(position));
 
@@ -45,11 +47,22 @@ public class RecyclerViewAdapter_Folder extends RecyclerView.Adapter<RecyclerVie
 
                 Intent intent = new Intent(mContext, ImageGalleryActivity.class);
                 intent.putExtra("folder_name", mFolderNames.get(position));
-//                intent.putExtra("folder_uri", mFolderUris.get(position));
                 mContext.startActivity(intent);
             }
         });
     }
+
+
+    // When we add delete files
+    /*
+    void deleteRecursive(File fileOrDirectory) {
+        if (fileOrDirectory.isDirectory())
+            for (File child : fileOrDirectory.listFiles())
+                deleteRecursive(child);
+
+        fileOrDirectory.delete();
+    }
+    */
 
     @Override
     public int getItemCount() {

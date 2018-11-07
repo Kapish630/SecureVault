@@ -1,4 +1,5 @@
 package com.example.kapis.securevault;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,6 +15,7 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -27,14 +29,6 @@ public class MainActivity extends AppCompatActivity implements newfolderdialog.N
     // Check if its the users first run
     SharedPreferences prefs = null;
 
-    // Stores the FolderName where the Dialog for new folder is created
-    String newFolderName;
-
-    // Code to take picture request
-    static final int REQUEST_TAKE_PHOTO = 1;
-
-    // Stores the path of the picture in a String
-    String mCurrentPhotoPath;
 
     // recvclerView in the activity_main.xml
     @BindView(R.id.main_FolderRecView)
@@ -42,7 +36,6 @@ public class MainActivity extends AppCompatActivity implements newfolderdialog.N
 
     RecyclerView.LayoutManager layoutManager;
     ArrayList<String> folderList;
-    ArrayList<Uri> folderUri;
     RecyclerViewAdapter_Folder adapter;
 
 
@@ -55,19 +48,56 @@ public class MainActivity extends AppCompatActivity implements newfolderdialog.N
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
         prefs = getSharedPreferences("MyData",MODE_PRIVATE);
 
-        folderList = new ArrayList<String>();
-        folderUri = new ArrayList<Uri>();
+        checkFirstRun();
 
+        folderList = new ArrayList<String>();
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new RecyclerViewAdapter_Folder(this, folderList, folderUri);
+        adapter = new RecyclerViewAdapter_Folder(this, folderList);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
 
+
     }
 
+    private void checkFirstRun(){
+        if(prefs.getBoolean("firstRun",true)) {
+            addNewFolder();
+            prefs.edit().putBoolean("firstRun",false).apply();
+        }
+        else
+        {
+
+        }
+
+    }
+
+    public boolean createFolder(String typedInFolderName){
+        String newDirectoryName = getFilesDir() + "/" + typedInFolderName;
+        File newDirectory = new File(newDirectoryName);
+        if(!newDirectory.exists())
+            if(!newDirectory.mkdir()){
+                Toast.makeText(this, "For some reason, " + typedInFolderName + " can't be created. Try again", Toast.LENGTH_LONG).show();
+                adapter.notifyDataSetChanged();
+                return false;
+            }
+            else {
+                Toast.makeText(this, "New Folder has been added.", Toast.LENGTH_SHORT).show();
+                adapter.notifyDataSetChanged();
+                return true;
+        }
+        else {
+            Toast.makeText(this, "Folder with that name already exits. Please try again with an original name.", Toast.LENGTH_LONG).show();
+            adapter.notifyDataSetChanged();
+            return false;
+        }
+    }
+
+
+    /*
 
     @Override
     protected void onResume() {
@@ -78,6 +108,7 @@ public class MainActivity extends AppCompatActivity implements newfolderdialog.N
         }
     }
 
+*/
     // If the user clicks the Lock Button in the top right corner
     @OnClick(R.id.main_LockBtn)
     public void lockApp(){
@@ -99,7 +130,6 @@ public class MainActivity extends AppCompatActivity implements newfolderdialog.N
                 });
         AlertDialog alert = builder.create();
         alert.show();
-
     }
 
     //In here we will allow the user to add a new folder
@@ -114,50 +144,16 @@ public class MainActivity extends AppCompatActivity implements newfolderdialog.N
     }
 
     @Override
-    public void getNewFolderName(String foldername) {
-           folderList.add(foldername);
-           adapter.notifyDataSetChanged();
+    public void getNewFolderName(String typedInFolderName) {
+           boolean created = createFolder(typedInFolderName);
+           if(created) {
+               folderList.add(typedInFolderName);
+               adapter.notifyDataSetChanged();
+           }
     }
 
 
 
-    //Opens the Android camera and allows the user to take a picture.
-    private void dispatchTakePictureIntent() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        // Ensure that there's a camera activity to handle the intent
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            // Create the File where the photo should go
-            File photoFile = null;
-            try {
-                photoFile = createImageFile();
-            } catch (IOException ex) {
-                Toast.makeText(this,"Error: Photo not saved. Try again.",Toast.LENGTH_SHORT).show();
-            }
-            // Continue only if the File was successfully created
-            if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(this,
-                        "com.example.android.fileprovider",
-                        photoFile);
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
-            }
-        }
-    }
 
-    // Creates and returns an image
-    private File createImageFile() throws IOException {
-        // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
-        );
-        // Save a file: path for use with ACTION_VIEW intents
-        mCurrentPhotoPath = image.getAbsolutePath();
-        return image;
-    }
 
 }

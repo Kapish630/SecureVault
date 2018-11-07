@@ -150,7 +150,4 @@ public class MainActivity extends AppCompatActivity implements newfolderdialog.N
     }
 
 
-
-
-
 }

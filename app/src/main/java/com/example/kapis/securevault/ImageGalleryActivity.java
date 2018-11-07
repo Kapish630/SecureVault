@@ -47,10 +47,14 @@ public class ImageGalleryActivity extends AppCompatActivity {
 
     @OnClick(R.id.galleryNewItem)
     public void AddNewPhoto(){
-        dispatchTakePictureIntent();
+
+
+
+        //dispatchTakePictureIntent();
     }
 
 
+    /*
     //Opens the Android camera and allows the user to take a picture.
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -83,13 +87,16 @@ public class ImageGalleryActivity extends AppCompatActivity {
         String dirName =  getFilesDir() + "/" + folderPathLabel.toString();
         File storageDir = new File(dirName);
         File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir   /* directory */
+                imageFileName,  // prefix
+                ".jpg",         // suffix
+                storageDir   // directory
         );
         // Save a file: path for use with ACTION_VIEW intents
         mCurrentPhotoPath = image.getAbsolutePath();
         return image;
     }
+
+    */
+
 
 }

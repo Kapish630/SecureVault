@@ -61,6 +61,7 @@ public class RecyclerViewAdapter_Folder extends RecyclerView.Adapter<RecyclerVie
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 File dirToBeDeleted = new File(mContext.getFilesDir() + "/" + mFolderNames.get(position));
+                                mFolderNames.remove(position);
                                 deleteFilesandDirectory(dirToBeDeleted);
                             }
                         })
@@ -86,6 +87,7 @@ public class RecyclerViewAdapter_Folder extends RecyclerView.Adapter<RecyclerVie
                 deleteFilesandDirectory(child);
         }
         toBeDeleted.delete();
+        notifyDataSetChanged();
     }
 
     @Override

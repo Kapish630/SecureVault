@@ -92,12 +92,6 @@
             android:text="@string/forgot_Password"
             android:textColor="@color/colorGrey" />
 
-        <TextView
-            android:id="@+id/login_NewAccount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/no_Account"
-            android:textColor="@color/colorGrey" />
     </LinearLayout>
 
 

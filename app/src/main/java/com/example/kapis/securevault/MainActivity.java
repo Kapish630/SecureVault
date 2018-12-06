@@ -15,6 +15,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -52,23 +55,12 @@ public class MainActivity extends AppCompatActivity implements newfolderdialog.N
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        prefs = getSharedPreferences("MyData",MODE_PRIVATE);
-
-        checkFirstRun();
-
         folderList = new ArrayList<String>(Arrays.asList(fileList()));
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         adapter = new RecyclerViewAdapter_Folder(this, folderList);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
-    }
-
-    private void checkFirstRun(){
-        if(prefs.getBoolean("firstRun",true)) {
-            addNewFolder();
-            prefs.edit().putBoolean("firstRun",false).apply();
-        }
     }
 
 
@@ -94,21 +86,13 @@ public class MainActivity extends AppCompatActivity implements newfolderdialog.N
     }
 
 
-    /*
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if(prefs.getBoolean("firstRun",true)) {
-            addNewFolder();
-            prefs.edit().putBoolean("firstRun",false).apply();
-        }
-    }
-
-*/
     // If the user clicks the Lock Button in the top right corner
     @OnClick(R.id.main_LockBtn)
     public void lockApp(){
+
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        auth.signOut();
 
         // Create a dialog box where the user can choose whether they want to sign out or not
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);

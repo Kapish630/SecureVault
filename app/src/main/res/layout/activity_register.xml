@@ -40,24 +40,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registerLabel">
 
-        <EditText
-            android:id="@+id/reigsterFullName"
-            android:background="@drawable/border"
-            android:paddingBottom="5sp"
-            android:paddingTop="5sp"
-            android:paddingLeft="5sp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10sp"
-            android:digits="@string/alpha"
-            android:ems="10"
-            android:hint="@string/fullName"
-            android:inputType="textPersonName"
-            android:selectAllOnFocus="true"
-            android:singleLine="true"
-            android:textColor="@color/colorWhite"
-            android:textColorHint="@color/colorGrey"
-            android:textSize="15sp" />
 
         <EditText
             android:id="@+id/registerEmail"

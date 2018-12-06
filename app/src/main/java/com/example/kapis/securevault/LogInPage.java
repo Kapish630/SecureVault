@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,22 +15,24 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.example.kapis.securevault.UserContract.TABLE_NAME;
-
 public class LogInPage extends AppCompatActivity {
+
+    FirebaseAuth mAuth;
 
     @BindView(R.id.login_Email)
     EditText emailInput;
 
     @BindView(R.id.login_Password)
     EditText passwordInput;
-
-    // DATABASE
-    UserAccountDBHelper mDbHelper;
 
     // COLORS USED
     final int colorRed = R.color.colorRed;
@@ -44,8 +47,7 @@ public class LogInPage extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        // UserAccoutDBHelper instance
-        mDbHelper = new UserAccountDBHelper(this);
+        mAuth = FirebaseAuth.getInstance();
 
         }
 
@@ -58,99 +60,64 @@ public class LogInPage extends AppCompatActivity {
         startActivity(intent);
     }
 
-    @OnClick(R.id.login_NewAccount)
-    public void registerScreen() {
-        // Brings you to the Registration Page
-        Intent intent = new Intent(this, Register.class);
-        startActivity(intent);
-    }
 
     @OnClick(R.id.login_SignIn)
     public void fingerprintScreen(View view) {
         // Brings you to the Fingerprint Screen
-        if (!loginSuccess()) {
-            emailInput.getText().clear();
-            passwordInput.getText().clear();
 
-            emailInput.setTextColor(getResources().getColor(colorBlack));
-            passwordInput.setTextColor(getResources().getColor(colorBlack));
+        SharedPreferences sharedPreferences = getSharedPreferences("MyData", Context.MODE_PRIVATE);
+        String localEmail = sharedPreferences.getString("localEmail", "NOT FOUND");
 
-            emailInput.setBackgroundColor(getResources().getColor(colorWhite));
-            passwordInput.setBackgroundColor(getResources().getColor(colorWhite));
+        String email = emailInput.getText().toString().trim();
+        String pass = passwordInput.getText().toString().trim();
 
-            loginSuccess();
-        } else {
-            emailInput.setBackgroundColor(getResources().getColor(colorBrightGreen));
-            emailInput.setTextColor(getResources().getColor(colorBlack));
-            passwordInput.setBackgroundColor(getResources().getColor(colorBrightGreen));
-            passwordInput.setTextColor(getResources().getColor(colorBlack));
-            Toast.makeText(this, "LOGIN SUCCESSFUL", Toast.LENGTH_SHORT).show();
-
-            SharedPreferences sharedPreferences = getSharedPreferences("MyData", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("currentUser", emailInput.getText().toString());
-            editor.apply();
-
-            // Brings you to the Registration Page
-            Intent intent = new Intent(this, SecondAuthentication.class);
-            startActivity(intent);
-
-        }
-    }
-
-    // Checks login success
-    private boolean loginSuccess() {
-
-        boolean valid = true;
-
-        if(!isPasswordValid())
-            valid = false;
-
-
-        if(!valid) {
-            passwordInput.setBackgroundColor(getResources().getColor(colorRed));
+        if(email.isEmpty()
+                || pass.isEmpty() )
+        {
+            emailInput.setTextColor(getResources().getColor(colorWhite));
             passwordInput.setTextColor(getResources().getColor(colorWhite));
             emailInput.setBackgroundColor(getResources().getColor(colorRed));
+            passwordInput.setBackgroundColor(getResources().getColor(colorRed));
+            Toast.makeText(LogInPage.this,"Email/Password cant be empty",Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(!email.equals(localEmail))
+        {
             emailInput.setTextColor(getResources().getColor(colorWhite));
-            Toast.makeText(this, "LOGIN UNSUCCESSFUL, TRY AGAIN", Toast.LENGTH_SHORT).show();
-        }
-        return valid;
-    }
-
-    // Queries database to see if the email entered in the edit text
-    // exists with a password entry
-    private boolean isPasswordValid()
-    {
-        boolean valid = true;
-
-        SQLiteDatabase db = mDbHelper.getReadableDatabase();
-        String query = "SELECT Email, Password from " + TABLE_NAME;
-        Cursor cursor = db.rawQuery(query,null);
-        String email, correctPass;
-        correctPass = "NOT FOUND";
-
-        if(cursor.moveToFirst())
-        {
-            do{
-                email = cursor.getString(0);
-
-                if(email.equals(emailInput.getText().toString()))
-                {
-                    correctPass = cursor.getString(1);
-                    break;
-                }
-
-            }while(cursor.moveToNext());
-        }
-        cursor.close();
-
-        if(!passwordInput.getText().toString().equals(correctPass))
-        {
-            valid = false;
+            passwordInput.setTextColor(getResources().getColor(colorWhite));
+            emailInput.setBackgroundColor(getResources().getColor(colorRed));
+            passwordInput.setBackgroundColor(getResources().getColor(colorRed));
+            Toast.makeText(LogInPage.this,"The email you entered is not the email you registered with.",Toast.LENGTH_LONG).show();
+            return;
         }
 
+        else {
+            mAuth.signInWithEmailAndPassword(email, pass)
+                    .addOnCompleteListener(LogInPage.this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if ( task.isSuccessful()) {
+                                emailInput.setBackgroundColor(getResources().getColor(colorBrightGreen));
+                                emailInput.setTextColor(getResources().getColor(colorBlack));
+                                passwordInput.setBackgroundColor(getResources().getColor(colorBrightGreen));
+                                passwordInput.setTextColor(getResources().getColor(colorBlack));
+                                Toast.makeText(LogInPage.this, "LOGIN SUCCESSFUL", Toast.LENGTH_SHORT).show();
 
-        return valid;
-    }
+                                // Brings you to the 2nd Auth Page
+                                Intent intent = new Intent(LogInPage.this, SecondAuthentication.class);
+                                startActivity(intent);
+                            } else {
+                                emailInput.setTextColor(getResources().getColor(colorWhite));
+                                passwordInput.setTextColor(getResources().getColor(colorWhite));
 
-}
+                                emailInput.setBackgroundColor(getResources().getColor(colorRed));
+                                passwordInput.setBackgroundColor(getResources().getColor(colorRed));
+                                Toast.makeText(LogInPage.this, "ERROR: LOGIN UNSUCCESSFUL", Toast.LENGTH_SHORT).show();
+
+                            }
+                        }
+                    });
+            }
+                       }
+                       }

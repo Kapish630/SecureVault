@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -93,6 +94,11 @@ public class LogInPage extends AppCompatActivity {
         }
 
         else {
+
+            final ProgressBar progressBar = findViewById(R.id.login_ProgressBar);
+            progressBar.setVisibility(View.VISIBLE);
+            progressBar.setIndeterminate(true);
+
             mAuth.signInWithEmailAndPassword(email, pass)
                     .addOnCompleteListener(LogInPage.this, new OnCompleteListener<AuthResult>() {
                         @Override
@@ -114,7 +120,7 @@ public class LogInPage extends AppCompatActivity {
                                 emailInput.setBackgroundColor(getResources().getColor(colorRed));
                                 passwordInput.setBackgroundColor(getResources().getColor(colorRed));
                                 Toast.makeText(LogInPage.this, "ERROR: LOGIN UNSUCCESSFUL", Toast.LENGTH_SHORT).show();
-
+                                progressBar.setVisibility(View.GONE);
                             }
                         }
                     });

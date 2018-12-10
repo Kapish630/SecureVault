@@ -41,6 +41,7 @@ import butterknife.OnClick;
 public class ImageGalleryActivity extends AppCompatActivity {
 
     String mCurrentPhotoPath;
+    File currentF;
     @BindView(R.id.gallery_folderName)
     TextView folderPathLabel;
 
@@ -113,7 +114,9 @@ public class ImageGalleryActivity extends AppCompatActivity {
                 getFromFile();//method to show images with adapter
             }
             else if (resultCode == RESULT_CANCELED) {
-                Toast.makeText(this, "You cancelled the operation", Toast.LENGTH_SHORT).show();
+                currentF.delete();//delete current image
+                getFromFile();//method to show images with adapter
+                Toast.makeText(this, "You cancelled the operation:", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -128,12 +131,12 @@ public class ImageGalleryActivity extends AppCompatActivity {
             fi = new String[listFile.length];
             for (int i = 0; i < listFile.length; i++)
             {
-                fi[i] = listFile[i].getAbsolutePath();
+                fi[i] = listFile[i].getAbsolutePath();//array of file path locations
                 //f.add(listFile[i].getAbsolutePath());
                 //Toast.makeText(this, listFile[i].getAbsolutePath().toString(), Toast.LENGTH_SHORT).show();
             }
             gridView.setAdapter(
-                    new ImageListAdapter(ImageGalleryActivity.this, fi )
+                    new ImageListAdapter(ImageGalleryActivity.this, fi )//use array of file paths as argument in constructor
             );
 
         }
@@ -151,6 +154,7 @@ public class ImageGalleryActivity extends AppCompatActivity {
                 ".jpg",   // suffix
                 str2      // directory
         );
+        currentF = image;
         mCurrentPhotoPath = image.getAbsolutePath();
         return image;
     }

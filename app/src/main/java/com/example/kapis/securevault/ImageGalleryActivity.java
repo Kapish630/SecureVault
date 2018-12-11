@@ -74,12 +74,13 @@ public class ImageGalleryActivity extends AppCompatActivity {
                     REQUEST_PERMISSION);
         }
 
+
         //allows users to click on an image from the grid, show a dialog box, and gives the option to delete the image selected
         gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
 
-                CharSequence[] items = {"Delete"};//add more options in the future
+                CharSequence[] items = {"Delete", "View"};//add more options in the future
                 AlertDialog.Builder dialog = new AlertDialog.Builder(ImageGalleryActivity.this);
 
                 dialog.setTitle("Choose an action");
@@ -95,8 +96,19 @@ public class ImageGalleryActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Image Deleted", Toast.LENGTH_SHORT).show();
                             getFromFile();// display gridView
 
-                        } else {
-                            //do nothing for now
+                        } else if (item == 1) {
+                            for (int i = 0; i < listFile.length; i++)
+                                if(position == i)
+                                {
+                                    String photoPath = listFile[position].getAbsolutePath();
+                                    Intent intent = new Intent(ImageGalleryActivity.this, imageView.class);
+                                    intent.putExtra("photoPath", photoPath);
+                                    startActivity(intent);
+                            }
+                        }
+                        else
+                        {
+                            // nothing else for now
                         }
                     }
                 });

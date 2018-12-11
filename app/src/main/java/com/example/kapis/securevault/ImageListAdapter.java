@@ -1,12 +1,18 @@
 package com.example.kapis.securevault;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+
+import com.bumptech.glide.load.Transformation;
+import com.bumptech.glide.load.engine.Resource;
+
+import java.security.MessageDigest;
 
 
 public class ImageListAdapter extends ArrayAdapter {

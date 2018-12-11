@@ -42,9 +42,6 @@ public class RecyclerViewAdapter_Folder extends RecyclerView.Adapter<RecyclerVie
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Toast.makeText(mContext, mFolderNames.get(position), Toast.LENGTH_SHORT).show();
-
                 Intent intent = new Intent(mContext, ImageGalleryActivity.class);
                 intent.putExtra("folder_name", mFolderNames.get(position));
                 mContext.startActivity(intent);

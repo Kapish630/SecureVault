@@ -4,8 +4,10 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -15,9 +17,12 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.SimpleAdapter;
@@ -68,6 +73,37 @@ public class ImageGalleryActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     REQUEST_PERMISSION);
         }
+
+        //allows users to click on an image from the grid, show a dialog box, and gives the option to delete the image selected
+        gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+
+                CharSequence[] items = {"Delete"};//add more options in the future
+                AlertDialog.Builder dialog = new AlertDialog.Builder(ImageGalleryActivity.this);
+
+                dialog.setTitle("Choose an action");
+                dialog.setItems(items, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int item) {
+                        if (item == 0) {
+                            // delete
+                            for (int i = 0; i < listFile.length; i++)
+                                if(position == i)//image position is the index number of the array of files in the directory
+                                    listFile[i].delete();
+
+                            Toast.makeText(getApplicationContext(), "Image Deleted", Toast.LENGTH_SHORT).show();
+                            getFromFile();// display gridView
+
+                        } else {
+                            //do nothing for now
+                        }
+                    }
+                });
+                dialog.show();
+                return true;
+            }
+        } );
     }
 
     @OnClick(R.id.galleryNewItem)

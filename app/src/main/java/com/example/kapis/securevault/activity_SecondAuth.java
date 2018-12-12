@@ -1,6 +1,7 @@
 package com.example.kapis.securevault;
 
 import android.app.KeyguardManager;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.hardware.fingerprint.FingerprintManager;
 import android.Manifest;
@@ -51,6 +52,7 @@ public class activity_SecondAuth extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_second_auth);
         ButterKnife.bind(this);
 

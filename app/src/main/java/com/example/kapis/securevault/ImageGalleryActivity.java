@@ -22,6 +22,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -59,6 +60,7 @@ public class ImageGalleryActivity extends AppCompatActivity {
     File[] listFile; //array of files
     public static final int REQUEST_PERMISSION = 200;
     public static final int REQUEST_IMAGE = 100;
+    public static final int RESULT_LOAD_IMG = 300;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,8 +120,21 @@ public class ImageGalleryActivity extends AppCompatActivity {
     }
 
     @OnClick(R.id.galleryNewItem)
-    public void AddNewPhoto(){
-        openCameraIntent();
+    public void listImportOptions(){
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Choose 'Gallery' to import picture or 'Camera' to take new picture").setCancelable(false)
+                .setPositiveButton("Camera", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) { openCameraIntent();
+                    }
+                })
+                .setNegativeButton("Gallery", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+openGalleryIntent();                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     //not sure if this is needed
@@ -132,6 +147,22 @@ public class ImageGalleryActivity extends AppCompatActivity {
                 Toast.makeText(this, "Thanks for granting Permission", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    private void openGalleryIntent(){
+            Intent galleryIntent = new Intent(Intent.ACTION_PICK);
+            galleryIntent.setType("image/*");
+            File importFile = null;
+            try {
+                importFile = createImageFile();
+            } catch (IOException e)
+            {
+                e.printStackTrace();
+                Toast.makeText(this,"Error: Photo not saved. Try again.",Toast.LENGTH_SHORT).show();
+                return;
+            }
+            Uri photoUri = FileProvider.getUriForFile(this, getPackageName() +".provider", importFile);
+            startActivityForResult(galleryIntent, RESULT_LOAD_IMG);
     }
 
     //Not sure if this is storing pictures in another file
@@ -156,7 +187,36 @@ public class ImageGalleryActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode,
                                     Intent data) {
-        if (requestCode == REQUEST_IMAGE) {
+        if( requestCode == RESULT_LOAD_IMG)
+        {
+            if (resultCode == RESULT_OK)
+            {
+                Matrix matrix = new Matrix();
+                matrix.postRotate(90);
+
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                Bitmap bitmap = BitmapFactory.decodeFile(currentF.getAbsoluteFile().toString(),options);
+                bitmap = Bitmap.createBitmap(bitmap,0,0,bitmap.getWidth(),bitmap.getHeight(),matrix,true);
+
+                FileOutputStream out;
+                try{
+                    out = new FileOutputStream(currentF);
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 85, out);
+                    out.flush();
+                    out.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                getFromFile();//method to show images with adapter
+            }
+            else if (resultCode == RESULT_CANCELED)
+            {
+                currentF.delete();//delete current image
+                getFromFile();//method to show images with adapter
+                Toast.makeText(this, "You cancelled the operation:", Toast.LENGTH_SHORT).show();
+            }
+        }
+        else if (requestCode == REQUEST_IMAGE) {
             if (resultCode == RESULT_OK) {
                 Matrix matrix = new Matrix();
                 matrix.postRotate(90);

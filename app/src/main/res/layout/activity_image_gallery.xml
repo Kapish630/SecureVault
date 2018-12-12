@@ -35,7 +35,7 @@
         android:id="@+id/images_GridView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
+        android:layout_marginTop="1sp"
         android:layout_weight="90"
         android:horizontalSpacing="3sp"
         android:numColumns="2"

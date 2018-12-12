@@ -99,6 +99,7 @@ public class activity_LoginPage extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if ( task.isSuccessful()) {
+                                progressBar.setVisibility(View.INVISIBLE);
                                 Toast.makeText(activity_LoginPage.this, "LOGIN SUCCESSFUL", Toast.LENGTH_SHORT).show();
                                 // Brings you to the 2nd Auth Page
                                 Intent intent = new Intent(activity_LoginPage.this, activity_SecondAuth.class);

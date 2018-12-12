@@ -10,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -34,6 +35,7 @@ import com.bumptech.glide.Glide;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -65,7 +67,7 @@ public class ImageGalleryActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         Intent intent = getIntent();
         folderPathLabel.setText(intent.getStringExtra("folder_name"));
-        gridView = (GridView) findViewById(R.id.images_GridView);
+        gridView = findViewById(R.id.images_GridView);
         getFromFile();
         //Not sure if this is needed
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
@@ -75,12 +77,22 @@ public class ImageGalleryActivity extends AppCompatActivity {
         }
 
 
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String photoPath = listFile[position].getAbsolutePath();
+                Intent intent = new Intent(ImageGalleryActivity.this, imageView.class);
+                intent.putExtra("photoPath", photoPath);
+                startActivity(intent);
+            }
+        });
+
         //allows users to click on an image from the grid, show a dialog box, and gives the option to delete the image selected
         gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
 
-                CharSequence[] items = {"Delete", "View"};//add more options in the future
+                CharSequence[] items = {"Delete"};//add more options in the future
                 AlertDialog.Builder dialog = new AlertDialog.Builder(ImageGalleryActivity.this);
 
                 dialog.setTitle("Choose an action");
@@ -96,19 +108,6 @@ public class ImageGalleryActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Image Deleted", Toast.LENGTH_SHORT).show();
                             getFromFile();// display gridView
 
-                        } else if (item == 1) {
-                            for (int i = 0; i < listFile.length; i++)
-                                if(position == i)
-                                {
-                                    String photoPath = listFile[position].getAbsolutePath();
-                                    Intent intent = new Intent(ImageGalleryActivity.this, imageView.class);
-                                    intent.putExtra("photoPath", photoPath);
-                                    startActivity(intent);
-                            }
-                        }
-                        else
-                        {
-                            // nothing else for now
                         }
                     }
                 });
@@ -159,6 +158,23 @@ public class ImageGalleryActivity extends AppCompatActivity {
                                     Intent data) {
         if (requestCode == REQUEST_IMAGE) {
             if (resultCode == RESULT_OK) {
+                Matrix matrix = new Matrix();
+                matrix.postRotate(90);
+
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                Bitmap bitmap = BitmapFactory.decodeFile(currentF.getAbsoluteFile().toString(),options);
+                bitmap = Bitmap.createBitmap(bitmap,0,0,bitmap.getWidth(),bitmap.getHeight(),matrix,true);
+
+                FileOutputStream out;
+                try{
+                    out = new FileOutputStream(currentF);
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 85, out);
+                    out.flush();
+                    out.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
                 getFromFile();//method to show images with adapter
             }
             else if (resultCode == RESULT_CANCELED) {
@@ -202,6 +218,7 @@ public class ImageGalleryActivity extends AppCompatActivity {
                 ".jpg",   // suffix
                 str2      // directory
         );
+
         currentF = image;
         mCurrentPhotoPath = image.getAbsolutePath();
         return image;

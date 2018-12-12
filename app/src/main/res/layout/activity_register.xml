@@ -30,7 +30,7 @@
     <LinearLayout
         android:id="@+id/registerLinearLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="165dp"
         android:layout_marginStart="15dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="15dp"
@@ -43,16 +43,16 @@
 
         <EditText
             android:id="@+id/registerEmail"
-            android:paddingBottom="5sp"
-            android:paddingTop="5sp"
-            android:paddingLeft="5sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/border"
             android:layout_marginBottom="10sp"
+            android:background="@drawable/border"
             android:ems="10"
             android:hint="@string/email_address"
             android:inputType="textEmailAddress"
+            android:paddingLeft="5sp"
+            android:paddingTop="5sp"
+            android:paddingBottom="5sp"
             android:selectAllOnFocus="true"
             android:singleLine="true"
             android:textColor="@color/colorWhite"
@@ -61,16 +61,16 @@
 
         <EditText
             android:id="@+id/registerPassword1"
-            android:paddingBottom="5sp"
-            android:paddingTop="5sp"
-            android:paddingLeft="5sp"
             android:layout_width="match_parent"
-            android:background="@drawable/border"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10sp"
+            android:background="@drawable/border"
             android:ems="10"
             android:hint="@string/password"
             android:inputType="textPassword"
+            android:paddingLeft="5sp"
+            android:paddingTop="5sp"
+            android:paddingBottom="5sp"
             android:selectAllOnFocus="true"
             android:singleLine="true"
             android:textColor="@color/colorWhite"
@@ -79,20 +79,35 @@
 
         <EditText
             android:id="@+id/registerPassword2"
-            android:paddingBottom="5sp"
-            android:paddingTop="5sp"
-            android:paddingLeft="5sp"
-            android:background="@drawable/border"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/border"
             android:ems="10"
             android:hint="@string/retypePassword"
             android:inputType="textPassword"
+            android:paddingLeft="5sp"
+            android:paddingTop="5sp"
+            android:paddingBottom="5sp"
             android:selectAllOnFocus="true"
             android:singleLine="true"
             android:textColor="@color/colorWhite"
             android:textColorHint="@color/colorGrey"
             android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center_vertical"
+            android:layout_weight="1"
+            android:paddingTop="5sp"
+            android:paddingLeft="15sp"
+            android:text="@string/passwordRequirement"
+            android:textAlignment="center"
+            android:textColor="@color/colorWhite"
+            android:textSize="10sp"
+            tools:layout_editor_absoluteX="25dp"
+            tools:layout_editor_absoluteY="339dp" />
 
     </LinearLayout>
 
@@ -101,12 +116,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="25dp"
         android:background="@color/colorBlue"
         android:text="@string/register"
         android:textColor="@color/colorWhite"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registerLinearLayout" />
 
@@ -121,6 +137,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo" />
+
+
 
 
 </android.support.constraint.ConstraintLayout>

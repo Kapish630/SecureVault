@@ -21,6 +21,7 @@
     <string name="emailHint">Enter in your email address</string>
     <string name="passwordHint">Enter in your password</string>
     <string name="retypePassword">Retype Password:</string>
+    <string name="passwordRequirement">Must be atleast 8 characters w/ number &amp; special char</string>
     <string name="fullName">Full Name:</string>
     <string name="forgotPasswordMessage">Please enter your email address and we will send you your password at the specified email.</string>
     <string name="forgotPasswordButton">Confirm</string>
@@ -35,6 +36,8 @@
     <string name="note_body">Enter in your note information here</string>
     <string name="msg_noNotes">No Notes Found</string>
     <string name="choice_Message">Please choose \'Notes\' or \'Gallery\'</string>
+    <string name="notes">Notes</string>
+    <string name="gallery">Gallery</string>
     <string name="new_note">New Note</string>
 
 

@@ -126,6 +126,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registerLinearLayout" />
 
+
     <ImageView
         android:id="@+id/registerLogo"
         android:layout_width="75sp"

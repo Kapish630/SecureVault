@@ -2,9 +2,11 @@ package com.example.kapis.securevault;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -17,6 +19,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -143,7 +146,30 @@ public class activity_Register extends AppCompatActivity {
                             }
                             else
                             {
-                                Toast.makeText(activity_Register.this,"ERROR: REGISTRATION UNSUCCESSFUL",Toast.LENGTH_SHORT).show();
+                                progressDialog.dismiss();
+                                Toast.makeText(activity_Register.this,"ERROR: " + task.getException().getMessage(),Toast.LENGTH_SHORT).show();
+                                if (task.getException() instanceof FirebaseAuthUserCollisionException) {
+                                    final AlertDialog.Builder builder = new AlertDialog.Builder(activity_Register.this);
+                                    builder.setMessage("Another account already has this email associated with it. " +
+                                            "Please use different email or go to Login Screen to reset password.").setCancelable(false)
+                                            .setPositiveButton("Login Screen", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    FirebaseAuth auth = FirebaseAuth.getInstance();
+                                                    auth.signOut();
+                                                    startActivity(new Intent(activity_Register.this, activity_LoginPage.class));
+                                                }
+                                            })
+                                            .setNegativeButton("Try Again with new email", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    dialog.dismiss();
+                                                }
+                                            });
+                                    AlertDialog alert = builder.create();
+                                    alert.show();
+
+                                }
                             }
                         }
                     });

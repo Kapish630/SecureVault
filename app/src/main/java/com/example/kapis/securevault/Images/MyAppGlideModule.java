@@ -1,4 +1,4 @@
-package com.example.kapis.securevault;
+package com.example.kapis.securevault.Images;
 
 import com.bumptech.glide.annotation.GlideModule;
 import com.bumptech.glide.module.AppGlideModule;

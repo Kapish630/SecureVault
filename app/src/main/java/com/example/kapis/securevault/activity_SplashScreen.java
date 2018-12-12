@@ -6,9 +6,8 @@ import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 
-public class SplashScreen extends AppCompatActivity {
+public class activity_SplashScreen extends AppCompatActivity {
 
     public static int splash_time = 1500;
     public static int first;
@@ -27,11 +26,11 @@ public class SplashScreen extends AppCompatActivity {
             public void run() {
                 if(first == 0)
                 {
-                    Intent nextIntent = new Intent(SplashScreen.this, Register.class);
+                    Intent nextIntent = new Intent(activity_SplashScreen.this, activity_Register.class);
                     startActivity(nextIntent);
                 }
                 else {
-                    Intent nextIntent = new Intent(SplashScreen.this, LogInPage.class);
+                    Intent nextIntent = new Intent(activity_SplashScreen.this, activity_LoginPage.class);
                     startActivity(nextIntent);
 
                 }

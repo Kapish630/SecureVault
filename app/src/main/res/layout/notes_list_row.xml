@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:foreground="?attr/selectableItemBackground"
+    android:paddingBottom="10sp"
+    android:paddingLeft="15sp"
+    android:paddingRight="15sp"
+    android:paddingTop="10sp">
+
+    <TextView
+        android:id="@+id/notesRowDot"
+        android:layout_width="wrap_content"
+        android:layout_height="30sp"
+        android:layout_marginRight="10sp"
+        android:layout_marginTop="10sp"
+        android:includeFontPadding="false"
+        android:textColor="@color/colorAccent"
+        android:lineSpacingExtra="0dp"
+        android:textSize="40sp" />
+
+    <TextView
+        android:id="@+id/notes_RowTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/notesRowDot"
+        android:textColor="@color/colorDarkBlue"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/notes_RowTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/notes_RowTime"
+        android:layout_toRightOf="@id/notesRowDot"
+        android:textColor="@color/colorBlack"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/notes_RowBody"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/notes_RowTitle"
+        android:layout_toRightOf="@id/notesRowDot"
+        android:textColor="@color/colorBlack"
+        android:textSize="15sp" />
+
+
+</RelativeLayout>

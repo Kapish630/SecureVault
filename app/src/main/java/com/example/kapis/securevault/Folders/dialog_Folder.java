@@ -1,4 +1,4 @@
-package com.example.kapis.securevault;
+package com.example.kapis.securevault.Folders;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -10,7 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 
-public class newfolderdialog extends AppCompatDialogFragment {
+import com.example.kapis.securevault.R;
+
+public class dialog_Folder extends AppCompatDialogFragment {
 
     private EditText editTextFolderName;
 

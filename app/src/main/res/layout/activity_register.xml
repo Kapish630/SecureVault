@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     android:layout_gravity="center"
-    tools:context=".Register">
+    tools:context=".activity_Register">
 
     <!-- Message to the user to enter in the information
                                                             -->

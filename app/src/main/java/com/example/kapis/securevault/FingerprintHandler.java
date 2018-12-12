@@ -8,16 +8,9 @@ import android.hardware.fingerprint.FingerprintManager;
 import android.Manifest;
 import android.os.CancellationSignal;
 import android.os.Handler;
-import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class FingerprintHandler extends FingerprintManager.AuthenticationCallback {
 
@@ -78,11 +71,10 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
 
 
     public void signInScreen() {
-        // brings you back to the SignInPage
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent homeIntent = new Intent(context, MainActivity.class);
+                Intent homeIntent = new Intent(context, activity_Choice.class);
                 context.startActivity(homeIntent);
             }
         }, 400);

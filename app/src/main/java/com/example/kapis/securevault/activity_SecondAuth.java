@@ -1,7 +1,6 @@
 package com.example.kapis.securevault;
 
 import android.app.KeyguardManager;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.fingerprint.FingerprintManager;
 import android.Manifest;
@@ -12,10 +11,7 @@ import android.security.keystore.KeyPermanentlyInvalidatedException;
 import android.security.keystore.KeyProperties;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v4.app.ActivityCompat;
-import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
-
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
@@ -37,7 +33,7 @@ import javax.crypto.SecretKey;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class SecondAuthentication extends AppCompatActivity {
+public class activity_SecondAuth extends AppCompatActivity {
 
     // Declare a string variable for the key we’re going to use in our fingerprint authentication
     private static final String KEY_NAME = "yourKey";
@@ -55,7 +51,7 @@ public class SecondAuthentication extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_second_authentication);
+        setContentView(R.layout.activity_second_auth);
         ButterKnife.bind(this);
 
         MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");

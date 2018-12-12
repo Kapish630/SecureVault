@@ -1,40 +1,29 @@
 package com.example.kapis.securevault;
 
 import android.app.ProgressDialog;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.sqlite.SQLiteDatabase;
-import android.service.autofill.FieldClassification;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.LoginFilter;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class Register extends AppCompatActivity {
+public class activity_Register extends AppCompatActivity {
 
     @BindView(R.id.registerEmail)
     EditText emailInput;
@@ -96,7 +85,7 @@ public class Register extends AppCompatActivity {
     }
 
 
-    // This is the Register button
+    // This is the activity_Register button
     // It calls the isValid Method to see if input is correct
     // Any field that is valid will turn back to original colors if it was red (incorrect) before.
     @OnClick(R.id.registerButton)
@@ -133,28 +122,28 @@ public class Register extends AppCompatActivity {
             editor.putString("localEmail",EMAIL);
             editor.apply();
 
-            emailInput.setBackgroundColor(getResources().getColor(colorBrightGreen));
-            emailInput.setTextColor(getResources().getColor(colorBlack));
-
-            passwordInput.setBackgroundColor(getResources().getColor(colorBrightGreen));
-            passwordInput.setTextColor(getResources().getColor(colorBlack));
-
-            password2Input.setBackgroundColor(getResources().getColor(colorBrightGreen));
-            password2Input.setTextColor(getResources().getColor(colorBlack));
-
             mAuth.createUserWithEmailAndPassword(EMAIL, PASS)
-                    .addOnCompleteListener(Register.this, new OnCompleteListener<AuthResult>() {
+                    .addOnCompleteListener(activity_Register.this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
-                                Toast.makeText(Register.this,"REGISTRATION SUCCESSFUL", Toast.LENGTH_SHORT).show();
+
+                                emailInput.setBackgroundColor(getResources().getColor(colorBrightGreen));
+                                emailInput.setTextColor(getResources().getColor(colorBlack));
+
+                                passwordInput.setBackgroundColor(getResources().getColor(colorBrightGreen));
+                                passwordInput.setTextColor(getResources().getColor(colorBlack));
+
+                                password2Input.setBackgroundColor(getResources().getColor(colorBrightGreen));
+                                password2Input.setTextColor(getResources().getColor(colorBlack));
+                                Toast.makeText(activity_Register.this,"REGISTRATION SUCCESSFUL", Toast.LENGTH_SHORT).show();
                                 // Passes new user information to the Main Activity screen for login validation
-                                Intent newUser = new Intent(Register.this, LogInPage.class);
+                                Intent newUser = new Intent(activity_Register.this, activity_LoginPage.class);
                                 startActivity(newUser);
                             }
                             else
                             {
-                                Toast.makeText(Register.this,"ERROR: REGISTRATION UNSUCCESSFUL",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(activity_Register.this,"ERROR: REGISTRATION UNSUCCESSFUL",Toast.LENGTH_SHORT).show();
                             }
                         }
                     });

@@ -1,28 +1,28 @@
-package com.example.kapis.securevault;
+package com.example.kapis.securevault.Folders;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+import com.example.kapis.securevault.R;
+import com.example.kapis.securevault.activity_ImageGallery;
+
 import java.util.ArrayList;
 import java.io.File;
 
 
 
-public class RecyclerViewAdapter_Folder extends RecyclerView.Adapter<RecyclerViewAdapter_Folder.ViewHolder>{
+public class FoldersAdapter extends RecyclerView.Adapter<FoldersAdapter.ViewHolder>{
 
     private ArrayList<String> mFolderNames;
     private Context mContext;
 
-    public RecyclerViewAdapter_Folder(Context context, ArrayList<String> folderNames ) {
+    public FoldersAdapter(Context context, ArrayList<String> folderNames ) {
         mFolderNames = folderNames;
         mContext = context;
     }
@@ -42,7 +42,7 @@ public class RecyclerViewAdapter_Folder extends RecyclerView.Adapter<RecyclerVie
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(mContext, ImageGalleryActivity.class);
+                Intent intent = new Intent(mContext, activity_ImageGallery.class);
                 intent.putExtra("folder_name", mFolderNames.get(position));
                 mContext.startActivity(intent);
             }

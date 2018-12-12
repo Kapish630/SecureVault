@@ -44,24 +44,27 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".SplashScreen">
+        <activity android:name=".activity_SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SecondAuthentication" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".activity_SecondAuth" />
+        <activity android:name=".activity_FoldersMain" />
         <activity
-            android:name=".ForgotPassword"
+            android:name=".activity_ForgotPassword"
             android:label="Forgot Password" />
         <activity
-            android:name=".Register"
+            android:name=".activity_Register"
             android:label="Register" />
-        <activity android:name=".LogInPage" />
-        <activity android:name=".ImageGalleryActivity" />
-        <activity android:name=".imageView"></activity>
+        <activity android:name=".activity_LoginPage" />
+        <activity android:name=".activity_ImageGallery" />
+        <activity android:name=".activity_EnlargeImage" />
+        <activity android:name=".activity_Choice"></activity>
+        <activity android:name=".activity_NotesMain"></activity>
+
     </application>
 
 </manifest>

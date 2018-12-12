@@ -1,48 +1,40 @@
 package com.example.kapis.securevault;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.kapis.securevault.Folders.FoldersAdapter;
+import com.example.kapis.securevault.Folders.dialog_Folder;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.OnLongClick;
 
-public class MainActivity extends AppCompatActivity implements newfolderdialog.NewFolderListener {
+public class activity_FoldersMain extends AppCompatActivity implements dialog_Folder.NewFolderListener {
 
     // Check if its the users first run
     SharedPreferences prefs = null;
 
 
-    // recvclerView in the activity_main.xml
+    // recvclerView in the activity_folders_mainers_main.xml
     @BindView(R.id.main_FolderRecView)
     RecyclerView recyclerView;
 
     RecyclerView.LayoutManager layoutManager;
     ArrayList<String> folderList;
-    RecyclerViewAdapter_Folder adapter;
+    FoldersAdapter adapter;
 
 
     @BindView(R.id.main_Header)
@@ -52,13 +44,13 @@ public class MainActivity extends AppCompatActivity implements newfolderdialog.N
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_folders_main);
         ButterKnife.bind(this);
 
         folderList = new ArrayList<String>(Arrays.asList(fileList()));
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new RecyclerViewAdapter_Folder(this, folderList);
+        adapter = new FoldersAdapter(this, folderList);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
     }
@@ -90,17 +82,15 @@ public class MainActivity extends AppCompatActivity implements newfolderdialog.N
     // If the user clicks the Lock Button in the top right corner
     @OnClick(R.id.main_LockBtn)
     public void lockApp(){
-
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        auth.signOut();
-
         // Create a dialog box where the user can choose whether they want to sign out or not
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Are you sure you want to lock the app?").setCancelable(false)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(MainActivity.this, LogInPage.class));
+                        FirebaseAuth auth = FirebaseAuth.getInstance();
+                        auth.signOut();
+                        startActivity(new Intent(activity_FoldersMain.this, activity_LoginPage.class));
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -113,6 +103,12 @@ public class MainActivity extends AppCompatActivity implements newfolderdialog.N
         alert.show();
     }
 
+    // If the user clicks the Lock Button in the top right corner
+    @OnClick(R.id.main_Logo)
+    public void goHome(){
+        startActivity(new Intent(activity_FoldersMain.this, activity_Choice.class));
+    }
+
     //In here we will allow the user to add a new folder
     @OnClick(R.id.mainNewFolder)
     public void addNewFolder() {
@@ -120,8 +116,8 @@ public class MainActivity extends AppCompatActivity implements newfolderdialog.N
     }
 
     public void openNewFolderDialog(){
-        newfolderdialog newfolderdialog = new newfolderdialog();
-        newfolderdialog.show(getSupportFragmentManager(),"newFolderDialog");
+        dialog_Folder dialog_Folder = new dialog_Folder();
+        dialog_Folder.show(getSupportFragmentManager(),"newFolderDialog");
     }
 
     @Override

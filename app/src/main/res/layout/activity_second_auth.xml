@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBlue"
-    tools:context=".SecondAuthentication">
+    tools:context=".activity_SecondAuth">
 
     <TextView
         android:id="@+id/fingerprint_Label"

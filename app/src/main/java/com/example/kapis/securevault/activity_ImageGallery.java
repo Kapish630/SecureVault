@@ -1,18 +1,13 @@
 package com.example.kapis.securevault;
 
 import android.Manifest;
-import android.app.Activity;
-import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.net.Uri;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -21,32 +16,25 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
+import com.example.kapis.securevault.Images.ImageListAdapter;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ImageGalleryActivity extends AppCompatActivity {
+public class activity_ImageGallery extends AppCompatActivity {
 
     String mCurrentPhotoPath;
     File currentF;
@@ -83,7 +71,7 @@ public class ImageGalleryActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String photoPath = listFile[position].getAbsolutePath();
-                Intent intent = new Intent(ImageGalleryActivity.this, imageView.class);
+                Intent intent = new Intent(activity_ImageGallery.this, activity_EnlargeImage.class);
                 intent.putExtra("photoPath", photoPath);
                 startActivity(intent);
             }
@@ -95,7 +83,7 @@ public class ImageGalleryActivity extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
 
                 CharSequence[] items = {"Delete"};//add more options in the future
-                AlertDialog.Builder dialog = new AlertDialog.Builder(ImageGalleryActivity.this);
+                AlertDialog.Builder dialog = new AlertDialog.Builder(activity_ImageGallery.this);
 
                 dialog.setTitle("Choose an action");
                 dialog.setItems(items, new DialogInterface.OnClickListener() {
@@ -260,7 +248,7 @@ openGalleryIntent();                    }
                 //Toast.makeText(this, listFile[i].getAbsolutePath().toString(), Toast.LENGTH_SHORT).show();
             }
             gridView.setAdapter(
-                    new ImageListAdapter(ImageGalleryActivity.this, fi )//use array of file paths as argument in constructor
+                    new ImageListAdapter(activity_ImageGallery.this, fi )//use array of file paths as argument in constructor
             );
 
         }

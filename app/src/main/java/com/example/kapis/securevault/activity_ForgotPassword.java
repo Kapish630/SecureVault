@@ -1,29 +1,21 @@
 package com.example.kapis.securevault;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ForgotPassword extends AppCompatActivity {
+public class activity_ForgotPassword extends AppCompatActivity {
 
 
     FirebaseAuth mAuth;
@@ -49,12 +41,12 @@ public class ForgotPassword extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()) {
-                            Toast.makeText(ForgotPassword.this,"If you have an account, We will send you an email with a way to reset your password",Toast.LENGTH_LONG).show();
+                            Toast.makeText(activity_ForgotPassword.this,"If you have an account, We will send you an email with a way to reset your password",Toast.LENGTH_LONG).show();
                             // brings you back to the SignInPage
-                            startActivity(new Intent(ForgotPassword.this, LogInPage.class));
+                            startActivity(new Intent(activity_ForgotPassword.this, activity_LoginPage.class));
                         }
                         else
-                            Toast.makeText(ForgotPassword.this,"Error",Toast.LENGTH_LONG).show();
+                            Toast.makeText(activity_ForgotPassword.this,"Error",Toast.LENGTH_LONG).show();
 
                     }
                 });
